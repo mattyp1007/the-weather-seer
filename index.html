@@ -10,6 +10,113 @@
   <title>The Weather Seer</title>
 </head>
 <body>
+  <div class="bg-primary m-x-0">
+    <h1 class="text-center text-white font-weight-bold p-2">The Weather Seer</h1>
+  </div>
+  <div class="container-fluid m-x-1">
+    <!-- Search bar and recent searches -->
+    <div class="row">
+      <div class="col-sm-3">
+        
+        <form>
+          <div class="form-group">
+            <label for="citySearch" class="searchLabel"><h3>Search for a City:</h3></label>
+            <input class="form-control" id="citySearch">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Search</button>
+        </form>
+      </div>
+      <!-- today's weather -->
+      <div class="col-sm-9">
+        <div class="row today border border-secondary pl-2 py-2">
+          <div class="col-sm-12">
+            <div class="row">
+              <h2 class="cityName" id="cityName">CityName <span id="date-0">(date)</span> <span id="icon-0">[icon]</span></h2>
+            </div>
+            <div class="row">
+              <p>Temp: <span id="temp-0"></span></p>
+            </div>
+            <div class="row">
+              <p>Wind: <span id="wind-0"></span></p>
+            </div>
+            <div class="row">
+              <p>Humidity: <span id="humidity-0"></span></p>
+            </div>
+            <div class="row">
+              <p>UV Index: <span id="uv"></span></p>
+            </div>
+          </div>
+        </div>
+        <!-- 5-day forecast -->
+        <div class="row">
+          <h3>5-Day Forecast:</h3>
+        </div>
+        <div class="row d-flex justify-content-between">
+          <div class="col-sm px-0">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Day 1</h5>
+                <!-- icon -->
+                <p class="card-text">Temp: <span id="temp-1"></span></p>
+                <p class="card-text">Wind: <span id="wind-1"></span></p>
+                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm px-0">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Day 2</h5>
+                <!-- icon -->
+                <p class="card-text">Temp: <span id="temp-1"></span></p>
+                <p class="card-text">Wind: <span id="wind-1"></span></p>
+                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm px-0">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Day 3</h5>
+                <!-- icon -->
+                <p class="card-text">Temp: <span id="temp-1"></span></p>
+                <p class="card-text">Wind: <span id="wind-1"></span></p>
+                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm px-0">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Day 4</h5>
+                <!-- icon -->
+                <p class="card-text">Temp: <span id="temp-1"></span></p>
+                <p class="card-text">Wind: <span id="wind-1"></span></p>
+                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm px-0">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Day 5</h5>
+                <!-- icon -->
+                <p class="card-text">Temp: <span id="temp-1"></span></p>
+                <p class="card-text">Wind: <span id="wind-1"></span></p>
+                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
   
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
