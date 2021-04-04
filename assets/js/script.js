@@ -25,10 +25,8 @@ function getCoords(city) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var lat = data.coord.lat;
       var lon = data.coord.lon;
-      console.log(lat + ' , ' + lon);
       getWeather(lat, lon, city);
     });
 }
@@ -41,7 +39,8 @@ function getWeather(x, y, cityName) {
       return response.json();
     })
     .then(function (data) {
-      renderCurrentWeather(data, cityName);
+      renderWeatherData(data, cityName);
+      createButton(cityName);
 
     })
 }
@@ -51,11 +50,14 @@ searchFormEl.on('submit', function(event) {
   var cityInput = cityInputEl.val();
   getCoords(cityInput);
   
+  
 })
 
-function renderCurrentWeather(retrievedData, city){
+function renderWeatherData(retrievedData, city){
+  // Current Weather //////////////////////////////////////
   var date = moment().format("M[/]D[/]YYYY");
-  var iconCode = retrievedData.current.weather.icon;
+  console.log(retrievedData);
+  var iconCode = retrievedData.current.weather[0].icon;
   var iconEl = $('#icon-0');
   iconEl.attr('src', `http://openweathermap.org/img/wn/${iconCode}.png`)
   
@@ -63,7 +65,7 @@ function renderCurrentWeather(retrievedData, city){
 
   var tempEl = $('#temp-0');
   var temp = retrievedData.current.temp;
-  tempEl.text(temp + '°F');
+  tempEl.text(temp + ' °F');
 
   var windEl = $('#wind-0');
   var wind = retrievedData.current.wind_speed;
@@ -76,4 +78,38 @@ function renderCurrentWeather(retrievedData, city){
   var uvEl = $('#uv');
   var uvIndex = retrievedData.current.uvi;
   uvEl.text(uvIndex);
+
+  // 5-Day Forecast ///////////////////////////////////////
+  for(var i = 1; i < 6; i++){
+    var day = moment().add(i, 'd').format("M[/]D[/]YYYY");
+    var dateEl = $('#date-'+i);
+    dateEl.text(day);
+
+    iconCode = retrievedData.daily[i].weather[0].icon;
+    console.log(iconCode);
+    iconEl = $('#icon-'+i);
+    console.log(iconEl);
+    iconEl.attr('src', `http://openweathermap.org/img/wn/${iconCode}.png`);
+
+    tempEl = $('#temp-'+i);
+    temp = retrievedData.daily[i].temp.day;
+    tempEl.text(temp + ' °F');
+
+    windEl = $('#wind-'+i);
+    wind = retrievedData.daily[i].wind_speed;
+    windEl.text(wind + ' MPH');
+
+    humidityEl = $('#humidity-'+i);
+    humidity = retrievedData.daily[i].humidity;
+    humidityEl.text(humidity + ' %');
+
+  }
+}
+
+function createButton(buttonText) {
+  var recentsListEl = $('#recentsList');
+  var newButton = document.createElement('button');
+  $(newButton).addClass('btn-block btn-secondary');
+  $(recentsListEl).append(newButton);
+  $(newButton).text(buttonText);
 }
