@@ -10,28 +10,28 @@
   <title>The Weather Seer</title>
 </head>
 <body>
-  <div class="bg-primary m-x-0">
+  <div class="bg-primary mx-0">
     <h1 class="text-center text-white font-weight-bold p-2">The Weather Seer</h1>
   </div>
-  <div class="container-fluid m-x-1">
+  <div class="container-fluid">
     <!-- Search bar and recent searches -->
-    <div class="row">
+    <div class="row mx-1">
       <div class="col-sm-3">
         
-        <form>
+        <form id="searchForm">
           <div class="form-group">
-            <label for="citySearch" class="searchLabel"><h3>Search for a City:</h3></label>
-            <input class="form-control" id="citySearch">
+            <label for="cityInput" class="searchLabel"><h3>Search for a City:</h3></label>
+            <input class="form-control" id="cityInput">
           </div>
           <button type="submit" class="btn btn-primary btn-block">Search</button>
         </form>
       </div>
       <!-- today's weather -->
-      <div class="col-sm-9">
+      <div class="col-sm-9 forecast">
         <div class="row today border border-secondary pl-2 py-2">
           <div class="col-sm-12">
             <div class="row">
-              <h2 class="cityName" id="cityName">CityName <span id="date-0">(date)</span> <span id="icon-0">[icon]</span></h2>
+              <h2 class="cityName" id="cityName"></h2><img class="icon" id="icon-0"></img>
             </div>
             <div class="row">
               <p>Temp: <span id="temp-0"></span></p>
