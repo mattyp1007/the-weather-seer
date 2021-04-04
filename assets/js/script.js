@@ -10,9 +10,11 @@ var forecastEl = $('.forecast');
 var searchFormEl = $('#searchForm')
 var cityInputEl = $('#cityInput');
 
-function getCurrentWeather(city) {
-  var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+// get city coordinates with a call to the Current Weather API
+function getCoords(city) {
   // console.log(url);
+  var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+
   fetch(url)
     .then(function (response)  {
       // console.log(response);
@@ -24,21 +26,54 @@ function getCurrentWeather(city) {
     })
     .then(function (data) {
       console.log(data);
-      renderCurrentWeather(data);
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+      console.log(lat + ' , ' + lon);
+      getWeather(lat, lon, city);
     });
+}
+
+// get weather data with a call to the One Call API
+function getWeather(x, y, cityName) {
+  var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${x}&lon=${y}&exclude=minutely,hourly,alerts&appid=${key}&units=imperial`
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      renderCurrentWeather(data, cityName);
+
+    })
 }
 
 searchFormEl.on('submit', function(event) {
   event.preventDefault();
   var cityInput = cityInputEl.val();
-  getCurrentWeather(cityInput);
+  getCoords(cityInput);
+  
 })
 
-function renderCurrentWeather(retrievedData){
+function renderCurrentWeather(retrievedData, city){
   var date = moment().format("M[/]D[/]YYYY");
-  var iconCode = retrievedData.weather[0].icon;
+  var iconCode = retrievedData.current.weather.icon;
   var iconEl = $('#icon-0');
   iconEl.attr('src', `http://openweathermap.org/img/wn/${iconCode}.png`)
   
-  $('.cityName').text(retrievedData.name + ' ' + date + ' ');
+  $('.cityName').text(city + ' (' + date + ') ');
+
+  var tempEl = $('#temp-0');
+  var temp = retrievedData.current.temp;
+  tempEl.text(temp + '°F');
+
+  var windEl = $('#wind-0');
+  var wind = retrievedData.current.wind_speed;
+  windEl.text(wind + ' MPH');
+
+  var humidityEl = $('#humidity-0');
+  var humidity = retrievedData.current.humidity;
+  humidityEl.text(humidity + ' %');
+
+  var uvEl = $('#uv');
+  var uvIndex = retrievedData.current.uvi;
+  uvEl.text(uvIndex);
 }
