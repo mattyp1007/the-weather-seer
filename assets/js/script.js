@@ -6,57 +6,33 @@
 
 var key = "12bc64a3e0930862a15da754f74d5af8";
 
+var newSearch = true;
 var forecastEl = $('.forecast');
 var searchFormEl = $('#searchForm')
 var cityInputEl = $('#cityInput');
-
-// get city coordinates with a call to the Current Weather API
-function getCoords(city) {
-  // console.log(url);
-  var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
-
-  fetch(url)
-    .then(function (response)  {
-      // console.log(response);
-      if(response.status === 404){
-        console.log('404');
-        return;
-      }
-      return response.json();
-    })
-    .then(function (data) {
-      var lat = data.coord.lat;
-      var lon = data.coord.lon;
-      getWeather(lat, lon, city);
-    });
+var cityListItems = $('#recentsList').children();
+var cities = [];
+for(i = 0; i < cityListItems.length; i++){
+  cities.append(cityListItems[i].text());
 }
 
-// get weather data with a call to the One Call API
-function getWeather(x, y, cityName) {
-  var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${x}&lon=${y}&exclude=minutely,hourly,alerts&appid=${key}&units=imperial`
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      renderWeatherData(data, cityName);
-      createButton(cityName);
+function createButton(buttonText) {
+  var recentsListEl = $('#recentsList');
+  var newButton = document.createElement('button');
+  $(newButton).attr('type', 'button');
+  $(newButton).addClass('list-group-item list-group-item-action list-group-item-dark rounded text-center mt-3 py-1 cityButton');
+  $(recentsListEl).append(newButton);
+  $(newButton).text(buttonText);
 
-    })
+  $(newButton).click( function(event) {
+    newSearch = false;
+    getCoords($(newButton).text());
+    console.log('Getting weather for '+$(newButton).text());
+  })
 }
-
-searchFormEl.on('submit', function(event) {
-  event.preventDefault();
-  var cityInput = cityInputEl.val();
-  getCoords(cityInput);
-  
-  
-})
-
 function renderWeatherData(retrievedData, city){
   // Current Weather //////////////////////////////////////
   var date = moment().format("M[/]D[/]YYYY");
-  console.log(retrievedData);
   var iconCode = retrievedData.current.weather[0].icon;
   var iconEl = $('#icon-0');
   iconEl.attr('src', `http://openweathermap.org/img/wn/${iconCode}.png`)
@@ -86,9 +62,7 @@ function renderWeatherData(retrievedData, city){
     dateEl.text(day);
 
     iconCode = retrievedData.daily[i].weather[0].icon;
-    console.log(iconCode);
     iconEl = $('#icon-'+i);
-    console.log(iconEl);
     iconEl.attr('src', `http://openweathermap.org/img/wn/${iconCode}.png`);
 
     tempEl = $('#temp-'+i);
@@ -106,11 +80,47 @@ function renderWeatherData(retrievedData, city){
   }
 }
 
-function createButton(buttonText) {
-  var recentsListEl = $('#recentsList');
-  var newButton = document.createElement('button');
-  
-  $(newButton).addClass('list-group-item list-group-item-action list-group-item-dark rounded text-center mt-3 py-1');
-  $(recentsListEl).append(newButton);
-  $(newButton).text(buttonText);
+
+// get weather data with a call to the One Call API
+function getWeather(x, y, cityName) {
+  var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${x}&lon=${y}&exclude=minutely,hourly,alerts&appid=${key}&units=imperial`
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      renderWeatherData(data, cityName);
+      if(newSearch)
+        createButton(cityName);
+
+    })
 }
+// get city coordinates with a call to the Current Weather API
+function getCoords(city) {
+  // console.log(url);
+  var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+
+  fetch(url)
+    .then(function (response)  {
+      // console.log(response);
+      if(response.status === 404){
+        console.log('404');
+        return;
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+      getWeather(lat, lon, city);
+    });
+}
+
+searchFormEl.on('submit', function(event) {
+  event.preventDefault();
+  var cityInput = cityInputEl.val();
+  newSearch = true;
+  getCoords(cityInput);
+  
+  
+})
