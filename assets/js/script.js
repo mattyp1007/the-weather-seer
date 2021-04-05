@@ -121,20 +121,17 @@ function getCoords(city) {
         var lat = data.coord.lat;
         var lon = data.coord.lon;
         getWeather(lat, lon, city);
-        $(searchAlertEl).addClass('invisible');
+        $(searchAlertEl).addClass('d-none');
         console.log('hiding alert');
       }
       // if error, remove the city from the array and display alert & hide forecast
       catch{
-        cities.pop(city);
+        cities.pop();
+        localStorage.setItem('cities', JSON.stringify(cities));
         $(forecastEl).addClass('invisible');
-        $(searchAlertEl).removeClass('invisible');
+        $(searchAlertEl).removeClass('d-none');
       }     
     });
-    
-  // catch(error){
-  //   console.log(error);
-  // }
 }
 
 searchFormEl.on('submit', function(event) {
