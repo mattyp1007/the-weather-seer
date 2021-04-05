@@ -11,9 +11,15 @@ var forecastEl = $('.forecast');
 var searchFormEl = $('#searchForm')
 var cityInputEl = $('#cityInput');
 var cityListItems = $('#recentsList').children();
-var cities = [];
-for(i = 0; i < cityListItems.length; i++){
-  cities.append(cityListItems[i].text());
+
+// get the saved searches
+var cities = JSON.parse(localStorage.getItem('cities'));
+if(!cities) { 
+  cities = []; 
+}
+console.log(cities);
+for(var i = 0; i < cities.length; i++){
+  createButton(cities[i]);
 }
 
 function createButton(buttonText) {
@@ -23,7 +29,8 @@ function createButton(buttonText) {
   $(newButton).addClass('list-group-item list-group-item-action list-group-item-dark rounded text-center mt-3 py-1 cityButton');
   $(recentsListEl).append(newButton);
   $(newButton).text(buttonText);
-
+  // add to array and save to local storage
+  
   $(newButton).click( function(event) {
     newSearch = false;
     getCoords($(newButton).text());
@@ -120,6 +127,8 @@ searchFormEl.on('submit', function(event) {
   event.preventDefault();
   var cityInput = cityInputEl.val();
   newSearch = true;
+  cities.push(cityInput);
+  localStorage.setItem('cities', JSON.stringify(cities));
   getCoords(cityInput);
   
   
