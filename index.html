@@ -28,93 +28,103 @@
         </form>
         <div class="list-group border-top border-dark mt-3" id="recentsList"></div>
       </div>
+      <!-- Alert -->
+      
       <!-- today's weather -->
-      <div class="col-sm-9 forecast">
-        <div class="row today border border-secondary pl-2 py-2">
-          <div class="col-sm-12">
-            <div class="row">
-              <h2 class="cityName" id="cityName"></h2><img class="icon" id="icon-0"></img>
-            </div>
-            <div class="row">
-              <p>Temp: <span id="temp-0"></span></p>
-            </div>
-            <div class="row">
-              <p>Wind: <span id="wind-0"></span></p>
-            </div>
-            <div class="row">
-              <p>Humidity: <span id="humidity-0"></span></p>
-            </div>
-            <div class="row">
-              <p>UV Index: <span id="uv"></span></p>
-            </div>
-          </div>
-        </div>
-        <!-- 5-day forecast -->
+      <div class="col-sm-9">
         <div class="row">
-          <h3>5-Day Forecast:</h3>
+          <div class="alert-danger invisible" role="alert" id="searchAlert">Error: City not found</div>
         </div>
-        <div class="row d-flex justify-content-between">
-          <div class="col-sm px-0">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="date-1"></h5>
-                <img id="icon-1"></img>
-                <p class="card-text">Temp: <span id="temp-1"></span></p>
-                <p class="card-text">Wind: <span id="wind-1"></span></p>
-                <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+        <div class="row forecast invisible pl-2 py-2 d-flex">  
+            
+          <div class="row today border border-secondary pl-2 py-2 flex-fill">
+            <div class="col-sm-12">
+              <div class="row">
+                <h2 class="cityName" id="cityName"></h2><img class="icon" id="icon-0"></img>
+              </div>
+              <div class="row">
+                <p>Temp: <span id="temp-0"></span></p>
+              </div>
+              <div class="row">
+                <p>Wind: <span id="wind-0"></span></p>
+              </div>
+              <div class="row">
+                <p>Humidity: <span id="humidity-0"></span></p>
+              </div>
+              <div class="row">
+                <p>UV Index: <span id="uv"></span></p>
               </div>
             </div>
           </div>
-
-          <div class="col-sm px-0">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="date-2"></h5>
-                <img id="icon-2"></img>
-                <p class="card-text">Temp: <span id="temp-2"></span></p>
-                <p class="card-text">Wind: <span id="wind-2"></span></p>
-                <p class="card-text">Humidity: <span id="humidity-2"></span></p>
+          <!-- 5-day forecast -->
+          <div class="row future pl-2 py-2">
+            <div class="row">
+              <h3>5-Day Forecast:</h3>
+            </div>
+            <div class="row d-flex justify-content-between">
+              <div class="col-sm px-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title" id="date-1"></h5>
+                    <img id="icon-1"></img>
+                    <p class="card-text">Temp: <span id="temp-1"></span></p>
+                    <p class="card-text">Wind: <span id="wind-1"></span></p>
+                    <p class="card-text">Humidity: <span id="humidity-1"></span></p>
+                  </div>
+                </div>
               </div>
+
+              <div class="col-sm px-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title" id="date-2"></h5>
+                    <img id="icon-2"></img>
+                    <p class="card-text">Temp: <span id="temp-2"></span></p>
+                    <p class="card-text">Wind: <span id="wind-2"></span></p>
+                    <p class="card-text">Humidity: <span id="humidity-2"></span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm px-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title" id="date-3"></h5>
+                    <img id="icon-3"></img>
+                    <p class="card-text">Temp: <span id="temp-3"></span></p>
+                    <p class="card-text">Wind: <span id="wind-3"></span></p>
+                    <p class="card-text">Humidity: <span id="humidity-3"></span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm px-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title" id="date-4"></h5>
+                    <img id="icon-4"></img>
+                    <p class="card-text">Temp: <span id="temp-4"></span></p>
+                    <p class="card-text">Wind: <span id="wind-4"></span></p>
+                    <p class="card-text">Humidity: <span id="humidity-4"></span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm px-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title" id="date-5"></h5>
+                    <img id="icon-5"></img>
+                    <p class="card-text">Temp: <span id="temp-5"></span></p>
+                    <p class="card-text">Wind: <span id="wind-5"></span></p>
+                    <p class="card-text">Humidity: <span id="humidity-5"></span></p>
+                  </div>
+                </div>
+              </div>
+
+              
             </div>
           </div>
-
-          <div class="col-sm px-0">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="date-3"></h5>
-                <img id="icon-3"></img>
-                <p class="card-text">Temp: <span id="temp-3"></span></p>
-                <p class="card-text">Wind: <span id="wind-3"></span></p>
-                <p class="card-text">Humidity: <span id="humidity-3"></span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm px-0">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="date-4"></h5>
-                <img id="icon-4"></img>
-                <p class="card-text">Temp: <span id="temp-4"></span></p>
-                <p class="card-text">Wind: <span id="wind-4"></span></p>
-                <p class="card-text">Humidity: <span id="humidity-4"></span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm px-0">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title" id="date-5"></h5>
-                <img id="icon-5"></img>
-                <p class="card-text">Temp: <span id="temp-5"></span></p>
-                <p class="card-text">Wind: <span id="wind-5"></span></p>
-                <p class="card-text">Humidity: <span id="humidity-5"></span></p>
-              </div>
-            </div>
-          </div>
-
-          
         </div>
       </div>
     </div>

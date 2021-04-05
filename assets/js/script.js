@@ -6,11 +6,13 @@
 
 var key = "12bc64a3e0930862a15da754f74d5af8";
 
-var newSearch = true;
+var newSearch = false;
 var forecastEl = $('.forecast');
 var searchFormEl = $('#searchForm')
 var cityInputEl = $('#cityInput');
 var cityListItems = $('#recentsList').children();
+var searchAlertEl = $('#searchAlert');
+
 
 // get the saved searches
 var cities = JSON.parse(localStorage.getItem('cities'));
@@ -83,8 +85,9 @@ function renderWeatherData(retrievedData, city){
     humidityEl = $('#humidity-'+i);
     humidity = retrievedData.daily[i].humidity;
     humidityEl.text(humidity + ' %');
-
   }
+  console.log('showing forecast')
+  $(forecastEl).removeClass('invisible');
 }
 
 
@@ -97,39 +100,57 @@ function getWeather(x, y, cityName) {
     })
     .then(function (data) {
       renderWeatherData(data, cityName);
-      if(newSearch)
+      if(newSearch){
         createButton(cityName);
+        newSearch = false;
+      }
+        
 
     })
 }
 // get city coordinates with a call to the Current Weather API
 function getCoords(city) {
-  // console.log(url);
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
-
   fetch(url)
     .then(function (response)  {
-      // console.log(response);
-      if(response.status === 404){
-        console.log('404');
-        return;
-      }
-      return response.json();
+      return response.json();      
     })
     .then(function (data) {
-      var lat = data.coord.lat;
-      var lon = data.coord.lon;
-      getWeather(lat, lon, city);
+      // continue if city found
+      try{
+        var lat = data.coord.lat;
+        var lon = data.coord.lon;
+        getWeather(lat, lon, city);
+        $(searchAlertEl).addClass('invisible');
+        console.log('hiding alert');
+      }
+      // if error, remove the city from the array and display alert & hide forecast
+      catch{
+        cities.pop(city);
+        $(forecastEl).addClass('invisible');
+        $(searchAlertEl).removeClass('invisible');
+      }     
     });
+    
+  // catch(error){
+  //   console.log(error);
+  // }
 }
 
 searchFormEl.on('submit', function(event) {
   event.preventDefault();
-  var cityInput = cityInputEl.val();
-  newSearch = true;
-  cities.push(cityInput);
-  localStorage.setItem('cities', JSON.stringify(cities));
+  var cityInput = cityInputEl.val().trim();
+  
+  // check if this search has been done before
+  if(!(cities.includes(cityInput))){
+    newSearch = true;
+    cities.push(cityInput);
+    localStorage.setItem('cities', JSON.stringify(cities));
+  }
+    
+  
   getCoords(cityInput);
+  
   
   
 })
