@@ -7,5 +7,5 @@ This project is a weather page which uses the OpenWeather API, the HTML elements
 https://mattyp1007.github.io/the-weather-seer/
 
 ## Screenshots
-![Caption](./assets/images/grab-1)
-![Caption](./assets/images/grab-2)
+![Caption](./assets/images/grab-1.png)
+![Caption](./assets/images/grab-2.png)
