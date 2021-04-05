@@ -109,7 +109,8 @@ function renderWeatherData(retrievedData, city){
 function createButton(buttonText) {
   var recentsListEl = $('#recentsList');
   var newButton = document.createElement('button');
-  $(newButton).addClass('btn-block btn-secondary');
+  
+  $(newButton).addClass('list-group-item list-group-item-action list-group-item-dark rounded text-center mt-3 py-1');
   $(recentsListEl).append(newButton);
   $(newButton).text(buttonText);
 }
