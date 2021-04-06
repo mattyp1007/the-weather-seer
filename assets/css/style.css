@@ -1,12 +1,18 @@
-/* h1 {
-  background-color: blueviolet;
-  color: white;
-} */
-
-/* .today {
-  border: black 1px solid;
-} */
+h1 {
+  background: rgb(58,77,180);
+  background: linear-gradient(90deg, rgba(58,77,180,1) 15%, rgba(237,145,17,1) 75%); 
+}
 
 .cityName {
   font-weight: 700;
+}
+
+.today {
+  font-weight: 600;
+}
+
+.card {
+  background-color: rgb(45,62,80);
+  color: white;
+  font-weight: 600;
 }
