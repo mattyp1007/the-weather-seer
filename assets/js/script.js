@@ -104,8 +104,6 @@ function getWeather(x, y, cityName) {
         createButton(cityName);
         newSearch = false;
       }
-        
-
     })
 }
 // get city coordinates with a call to the Current Weather API
@@ -144,10 +142,5 @@ searchFormEl.on('submit', function(event) {
     cities.push(cityInput);
     localStorage.setItem('cities', JSON.stringify(cities));
   }
-    
-  
   getCoords(cityInput);
-  
-  
-  
 })
